@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "litter-pickers",
+    "slug": "litter-pickers",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "litter-pickers"
+}
