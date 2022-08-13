@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 export const LogCleanup = () => {
   return (
     <View>
-      <Text>Homepage</Text>
+      <Text>Log a new cleanup</Text>
     </View>
   );
 };

@@ -5,7 +5,7 @@ import { UserProf } from "./styled";
 export const UserProfile = () => {
   return (
     <View>
-      <Text>Welcome, User</Text>
+      <Text>Welcome, Tessa</Text>
     </View>
   );
 };
