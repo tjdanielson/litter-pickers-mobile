@@ -9,7 +9,7 @@ import {
 } from "@react-navigation/drawer";
 import { UserProfile } from "./src/Components/UserProfile/UserProfile";
 import CommunityDashboard from "./src/Components/CommunityDashboard/CommunityDashboard";
-import Homepage from "./src/Components/HomePage/Homepage";
+import Homepage, { LogCleanup } from "./src/Components/LogCleanup/LogCleanup";
 
 function CustomDrawerContent(props) {
   return (
@@ -35,12 +35,12 @@ function HamburgerMenu() {
       useLegacyImplementation
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Home" component={Homepage} />
       <Drawer.Screen name="Profile" component={UserProfile} />
       <Drawer.Screen
         name="Community Dashboard"
         component={CommunityDashboard}
       />
+      <Drawer.Screen name="Log a Cleanup" component={LogCleanup} />
     </Drawer.Navigator>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const Homepage = () => {
+export const LogCleanup = () => {
   return (
     <View>
       <Text>Homepage</Text>
@@ -9,4 +9,4 @@ export const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default LogCleanup;
