@@ -1,11 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { UserProf } from "./styled";
+import { View, StyleSheet } from "react-native";
+import { styles } from "../../styles/styles";
+import { Text, Image } from "native-base";
 
 export const UserProfile = () => {
   return (
-    <View>
-      <Text>Welcome, Tessa</Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>Welcome, Tessa</Text>
+      <Image
+        style={styles.image}
+        source={require("../../../assets/pond_half.png")}
+        alt="pond"
+      />
     </View>
   );
 };
