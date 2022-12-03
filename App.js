@@ -9,22 +9,24 @@ import {
 import { UserProfile } from "./src/Components/UserProfile/UserProfile";
 import CommunityDashboard from "./src/Components/CommunityDashboard/CommunityDashboard";
 import Homepage, { LogCleanup } from "./src/Components/LogCleanup/LogCleanup";
+import LoginPage from "./src/Components/LoginPage";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import { styles } from "./src/styles/styles";
+import { AuthProvider } from "./src/context/AuthContext";
 
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem
+      {/* <DrawerItem
         label="Close drawer"
         onPress={() => props.navigation.closeDrawer()}
       />
       <DrawerItem
         label="Toggle drawer"
         onPress={() => props.navigation.toggleDrawer()}
-      />
+      /> */}
     </DrawerContentScrollView>
   );
 }
@@ -63,6 +65,7 @@ function HamburgerMenu() {
         component={LogCleanup}
         options={headerStyle}
       />
+      <Drawer.Screen name="Login" component={LoginPage} options={headerStyle} />
     </Drawer.Navigator>
   );
 }
@@ -71,7 +74,9 @@ export default function App() {
   return (
     <NativeBaseProvider style={styles.container}>
       <NavigationContainer>
-        <HamburgerMenu />
+        <AuthProvider>
+          <HamburgerMenu />
+        </AuthProvider>
       </NavigationContainer>
       <View></View>
     </NativeBaseProvider>
