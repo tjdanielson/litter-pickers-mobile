@@ -3,8 +3,6 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const AuthContext = createContext();
 
@@ -16,62 +14,8 @@ const decodeUser = (token) => {
   return newUser;
 };
 
-const getTokenFromStorage = async () => {
-  try {
-    await AsyncStorage.getItem("token").then((response) => {
-      tokenStuff = response;
-      console.log("tokenstuff", tokenStuff);
-      return tokenStuff;
-    });
-  } catch {
-    return null;
-  }
-};
-
-const getUserToken = () => {
-  let user = getTokenFromStorage();
-  console.log(user);
-  return user;
-};
-
-const setUserObject = async (user) => {
-  console.log(`user ${user.toJSON}`);
-  if (!user) {
-    return null;
-  } else {
-    try {
-      let jsonValue = await AsyncStorage.getItem("token");
-      console.log(JSON.parse(jsonValue));
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      console.log(e);
-    }
-    // return {
-    //     username: user.username,
-    //     id: user.user_id,
-    //     first_name: user.first_name,
-    //     is_staff: user.is_staff,
-    //   };
-  }
-};
-
 export const AuthProvider = ({ children }) => {
-  const getTokenFromStorage = async () => {
-    try {
-      await AsyncStorage.getItem("token").then((response) => {
-        tokenStuff = response;
-        console.log("tokenstuff", tokenStuff);
-        setUser(tokenStuff);
-      });
-    } catch {
-      return null;
-    }
-  };
-
   const BASE_URL = "http://127.0.0.1:8000/api/auth";
-  const NEW_URL = "http://192.168.1.223:19000/api/auth";
-  const userToken = getTokenFromStorage();
-  const decodedUser = userToken ? userToken : null;
   const [token, setToken] = useState();
   const [user, setUser] = useState();
   const [isServerError, setIsServerError] = useState(false);
@@ -101,10 +45,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginUser = async (loginData) => {
-    console.log("inside login user");
-    console.log(loginData);
     try {
-      console.log("inside try");
       let response = await axios.post(`${BASE_URL}/login/`, loginData);
       if (response.status === 200) {
         await AsyncStorage.setItem(
@@ -114,24 +55,27 @@ export const AuthProvider = ({ children }) => {
         let userToken = await AsyncStorage.getItem("token");
         let decodedUser = decodeUser(userToken);
         setUser(decodedUser);
-        console.log(decodedUser);
         navigation.navigate("Profile");
       } else {
-        //navigate("/register");
+        navigation.navigate("Register");
       }
     } catch (error) {
-      //console.log(error.toJSON());
-      setIsServerError(true);
-      //navigate("/register");
+      if (error.response.status === 401) {
+        console.log(error);
+        navigation.navigate("Register");
+      } else {
+        console.log(error);
+        setIsServerError(true);
+      }
     }
   };
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
     if (user) {
-      localStorage.removeItem("token");
+      await AsyncStorage.removeItem("token");
       setUser(null);
       setToken(null);
-      //navigate("/");
+      navigation.navigate("Login");
     }
   };
 

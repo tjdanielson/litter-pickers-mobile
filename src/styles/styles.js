@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   form: {
+    flex: 1,
     backgroundColor: "#F0EAD2",
     padding: 5,
   },

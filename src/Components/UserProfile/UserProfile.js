@@ -1,24 +1,15 @@
-import React, { useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { styles } from "../../styles/styles";
 import { Text, Image } from "native-base";
 import useAuth from "../../hooks/useAuth";
 
 export const UserProfile = () => {
-  const [user, token] = useAuth();
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  const [user] = useAuth();
 
   return (
     <View style={styles.container}>
-      {user ? (
-        <Text style={styles.header}>Welcome, {user.username}</Text>
-      ) : (
-        <Text style={styles.header}>Welcome, UNKNOWN</Text>
-      )}
-
+      {user && <Text style={styles.header}>Welcome, {user.username}</Text>}
       <Image
         style={styles.image}
         source={require("../../../assets/pond_half.png")}

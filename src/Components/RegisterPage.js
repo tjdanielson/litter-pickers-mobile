@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { Input, Stack, FormControl, Button } from "native-base";
 import AuthContext from "../context/AuthContext";
 import { styles } from "../styles/styles";
 
-export const LoginPage = ({ navigation }) => {
-  const { loginUser, isServerError, logoutUser } = useContext(AuthContext);
+//TODO: This page is not currently functional,
+//need to update register auth context and wire this page up
+
+export const RegisterPage = ({ navigation }) => {
+  const { registerUser, isServerError } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [formData, setFormData] = useState("");
@@ -19,7 +22,7 @@ export const LoginPage = ({ navigation }) => {
 
   useEffect(() => {
     if (formData.username) {
-      loginUser(formData);
+      registerUser(formData);
     }
   }, [formData]);
 
@@ -49,7 +52,7 @@ export const LoginPage = ({ navigation }) => {
               style={{ paddingLeft: 5, marginTop: 10, marginLeft: 10 }}
               onPress={compileForm}
             >
-              <Text>Login</Text>
+              <Text>Register</Text>
             </Button>
           </Stack>
         </FormControl>
@@ -58,4 +61,4 @@ export const LoginPage = ({ navigation }) => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
